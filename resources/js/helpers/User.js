@@ -11,6 +11,7 @@ class User {
         const username = res.data.user;
         if(Token.isValid(token)){
             AppStorage.store(token,username);
+            window.location = '/forum';
         }
     }
     hasToken(){
@@ -25,6 +26,7 @@ class User {
     }
     logout(){
         AppStorage.clear();
+        window.location = '/forum';
     }
     name(){
         if(this.loggin()){

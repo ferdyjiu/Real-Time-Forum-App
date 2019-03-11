@@ -4,11 +4,12 @@
             <v-toolbar-title>Bitfumes</v-toolbar-title>
         <v-spacer></v-spacer>
         <div class="hidden-sm-and-down">
-            <v-btn flat>Forum</v-btn>
-            <v-btn flat>Ask Question</v-btn>
-            <v-btn flat>Categories</v-btn>
-            <router-link to="/login">
-                <v-btn flat>Login</v-btn>
+            <router-link 
+            v-for="item in items"
+            :key="item.title"
+            :to="item.to"
+           >
+                <v-btn  v-if="item.show" flat>{{item.title}}</v-btn>
             </router-link>
           
         </div>
@@ -17,7 +18,22 @@
 
 <script>
 export default {
-
+    data(){
+        return{
+            items: [
+                {title : 'forum', to:'/forum', show:true},
+                {title : 'Ask Question', to:'/ask', show:User.loggin()},
+                {title : 'Category', to:'/category', show:User.loggin()},
+                {title : 'Login', to:'/login', show:!User.loggin()},
+                {title : 'Logout', to:'/logout', show:User.loggin()},
+            ]
+        }
+    },
+    created(){
+        EventBus.$on('logout',()=>{
+            User.logout();
+        })
+    }
 }
 </script>
 

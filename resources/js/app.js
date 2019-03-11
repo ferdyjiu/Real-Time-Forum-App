@@ -10,6 +10,8 @@ require('./bootstrap');
 import User from './helpers/User'
 window.Vue = require('vue');
 window.User = User
+console.log(User.loggin());
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -27,8 +29,11 @@ Vue.component('app-home', require('./components/AppHome.vue').default);
 
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import VeeValidate from 'vee-validate'
 
-Vue.use(Vuetify)
+Vue.use(Vuetify);
+Vue.use(VeeValidate);
+window.EventBus = new Vue();
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
