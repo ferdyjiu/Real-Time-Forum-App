@@ -8,9 +8,11 @@
 require('./bootstrap');
 
 import User from './helpers/User'
+import md from 'marked';
 window.Vue = require('vue');
 window.User = User
-console.log(User.loggin());
+window.md = md
+
 
 
 /**
@@ -30,9 +32,11 @@ Vue.component('app-home', require('./components/AppHome.vue').default);
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VeeValidate from 'vee-validate'
+import VueSimplemde from 'vue-simplemde'
 
 Vue.use(Vuetify);
 Vue.use(VeeValidate);
+Vue.use(VueSimplemde)
 window.EventBus = new Vue();
 /**
  * Next, we will create a fresh Vue application instance and attach it to
