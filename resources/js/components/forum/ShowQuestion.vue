@@ -13,11 +13,11 @@
             </v-card-title>
             <v-card-text v-html="body"> </v-card-text>
             <v-card-actions v-if="own">
-                <v-btn @click="edit()" small color="orange">
-                    edit
+                <v-btn  @click="edit()" icon small >
+                    <i class="fas fa-pencil-alt" style="color:orange" ></i>
                 </v-btn>
-                <v-btn @click="destroy()"  small color="red">
-                    delete
+                <v-btn @click="destroy()" icon small>
+                    <i class="fas fa-trash-alt" style="color:red"></i>
                 </v-btn>
             </v-card-actions>
         </v-container>
