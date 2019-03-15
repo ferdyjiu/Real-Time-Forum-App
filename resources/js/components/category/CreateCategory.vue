@@ -26,9 +26,9 @@
                 <v-toolbar color="indigo" dark dense class="mt-2">
                     <v-toolbar-title>Categories</v-toolbar-title>
                 </v-toolbar>
-                <div>
+                <div v-for="(category,index) in categories" :key="category.id">
                     <v-list>
-                        <v-list-tile v-for="(category,index) in categories" :key="category.id">
+                        <v-list-tile >
                             <v-list-tile-action>
                                 <v-btn icon small @click="edit(index)" >
                                     <i class="fas fa-pencil-alt" style="color:orange" ></i>
@@ -44,6 +44,7 @@
                             </v-list-tile-action>
                         </v-list-tile>
                     </v-list>
+                    <v-divider></v-divider>
                 </div>
             </v-card>
         </v-container>
@@ -86,7 +87,7 @@ export default {
             axios.patch(`/api/category/${this.editSlug}`,this.form)
             .then(res => {
                 this.categories.unshift(res.data);
-                this.form.name = null;
+                this.form.name = '';
                 this.editSlug = null;
             })
             .catch(err => {
@@ -97,7 +98,7 @@ export default {
             axios.post('/api/category',this.form)
             .then(res => {
                 this.categories.unshift(res.data);
-                this.form.name = null;
+                this.form.name = '';
             })
             .catch(err => {
                 console.error(err); 
