@@ -9,8 +9,10 @@ require('./bootstrap');
 
 import User from './helpers/User'
 import md from 'marked';
+import Exception from './helpers/Exception'
 window.Vue = require('vue');
 window.User = User
+window.Exception = Exception
 window.md = md
 
 
