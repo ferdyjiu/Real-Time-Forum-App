@@ -13,10 +13,11 @@
                             data-vv-name="name"
                             required
                         ></v-text-field>
+                        <span class="red--text" v-if="erors.name">{{erors.name[0]}}</span>
                     </v-flex>
                     <v-flex xs12>
-                        <v-btn type="submit" color="pink" v-if="editSlug">Update</v-btn>
-                        <v-btn type="submit" color="green" v-else >Create</v-btn>
+                        <v-btn type="submit" color="pink" v-if="editSlug" :disabled="disabled">Update</v-btn>
+                        <v-btn type="submit" color="green" v-else :disabled="disabled">Create</v-btn>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -61,6 +62,7 @@ export default {
             },
             categories : {},
             editSlug : null,
+            erors:{}
         }
     },
     created(){
@@ -101,7 +103,7 @@ export default {
                 this.form.name = '';
             })
             .catch(err => {
-                console.error(err); 
+                this.erors = error.response.data.errors
             })
         },
         destroy(slug,index){
@@ -110,13 +112,18 @@ export default {
                 this.categories.splice(index,1);
             })
             .catch(err => {
-                console.error(err); 
+               this.erors = error.response.data.errors
             })
         },
         edit(index){
             this.form.name = this.categories[index].name;
             this.editSlug = this.categories[index].slug;
             this.categories.splice(index,1);
+        }
+    },
+    computed:{
+        disabled(){
+            return !(this.form.name)
         }
     }
 }

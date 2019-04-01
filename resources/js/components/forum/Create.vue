@@ -13,6 +13,7 @@
                             data-vv-name="title"
                             required
                         ></v-text-field>
+                        <span class="red--text" v-if="erors.title">{{erors.title[0]}}</span>
                     </v-flex>
                   
                     <v-flex xs12>
@@ -25,22 +26,22 @@
                             v-validate="'required'"
                             :error-messages="errors.collect('category')"
                             data-vv-name="category"
-                             
                         ></v-autocomplete>
+                         <span class="red--text" v-if="erors.category_id">{{erors.category_id[0]}}</span>
                     </v-flex>
                     <v-flex xs12>
                         <markdown-editor 
                             v-model="form.body" 
                             ref="markdownEditor"
-                            v-validate="'required'"
-                            :error-messages="errors.collect('body')"
                             data-vv-name="body"
                         ></markdown-editor>
+                        <span class="red--text" v-if="erors.body">{{erors.body[0]}}</span>
                     </v-flex>
                     <v-flex xs12>
                         <v-btn 
                             type="submit"
                             color="green"
+                            :disabled="disabled"
                         >Create</v-btn>
                         
                     </v-flex>
@@ -81,11 +82,16 @@ export default {
                     .then(res => {
                         this.$router.push(res.data.path);
                     })
-                    .catch(err => {
-                        console.log(this.erors = err.response.data.error); 
+                    .catch(error => {
+                        this.erors = error.response.data.errors
                     })
                 }
             })    
+        }
+    },
+    computed:{
+        disabled(){
+            return !(this.form.title && this.form.body && this.form.category_id)
         }
     }
 }
